@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pertanyaan</title>
+  <link rel="stylesheet" href="gaya.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0a2540;
+      color: white;
+    }
+
+    .question-block {
+      background-color: #305a87;
+      margin: 20px;
+      padding: 15px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+    }
+
+    .question-block:hover {
+      background-color: #3b6da3;
+    }
+
+    .question-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      pointer-events: none;
+    }
+
+    .question-content {
+      margin-top: 0;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease, margin-top 0.4s ease;
+    }
+
+    .question-block.open .question-content {
+      margin-top: 15px;
+      max-height: 1000px;
+    }
+
+    .arrow {
+      font-size: 18px;
+      transition: transform 0.3s;
+    }
+
+    .question-block.open .arrow {
+      transform: rotate(180deg);
+    }
+
+    .option-button {
+      background-color: #305a87;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin: 8px 5px 0 0;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .option-button:hover {
+      background-color: #3b6da3;
+    }
+
+    .correct {
+      background-color: #28a745 !important;
+    }
+
+    .wrong {
+      background-color: #dc3545 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="question-block">
+    <div class="question-title">
+      Network Security
+      <span class="arrow">▼</span>
+    </div>
+    <div class="question-content">
+      <p>1. Apa itu firewall?</p>
+      <button class="option-button">Alat pemanas ruangan</button>
+      <button class="option-button">Sistem keamanan jaringan</button>
+
+      <p>2. WPA2 digunakan untuk?</p>
+      <button class="option-button">Keamanan WiFi</button>
+      <button class="option-button">Pemblokiran iklan</button>
+
+      <p>3. Apa itu VPN?</p>
+      <button class="option-button">Virtual Private Network</button>
+      <button class="option-button">Virus Penyebar Net</button>
+
+      <p>4. IDS digunakan untuk?</p>
+      <button class="option-button">Deteksi intrusi</button>
+      <button class="option-button">Desain UI</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="question-title">
+      Email Phishing
+      <span class="arrow">▼</span>
+    </div>
+    <div class="question-content">
+      <p>1. Ciri utama email phishing?</p>
+      <button class="option-button">Tampilan menarik</button>
+      <button class="option-button">Permintaan data pribadi</button>
+
+      <p>2. Langkah jika menerima email mencurigakan?</p>
+      <button class="option-button">Klik semua link</button>
+      <button class="option-button">Laporkan & hapus</button>
+
+      <p>3. Phishing sering meniru?</p>
+      <button class="option-button">Layanan resmi</button>
+      <button class="option-button">Website kartun</button>
+
+      <p>4. Email phishing sering mengandung?</p>
+      <button class="option-button">Tawaran palsu</button>
+      <button class="option-button">Berita lokal</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="question-title">
+      Password & Keamanan
+      <span class="arrow">▼</span>
+    </div>
+    <div class="question-content">
+      <p>1. Password yang aman terdiri dari?</p>
+      <button class="option-button">Nama dan tanggal lahir</button>
+      <button class="option-button">Huruf, angka, simbol</button>
+
+      <p>2. Gunakan password manager untuk?</p>
+      <button class="option-button">Menghafal password</button>
+      <button class="option-button">Menyimpan password dengan aman</button>
+
+      <p>3. Ganti password secara?</p>
+      <button class="option-button">Rutin</button>
+      <button class="option-button">Setelah 10 tahun</button>
+
+      <p>4. Gunakan autentikasi?</p>
+      <button class="option-button">2 Langkah</button>
+      <button class="option-button">1 Langkah</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="question-title">
+      Malware
+      <span class="arrow">▼</span>
+    </div>
+    <div class="question-content">
+      <p>1. Malware adalah?</p>
+      <button class="option-button">Perangkat lunak berbahaya</button>
+      <button class="option-button">Antivirus resmi</button>
+
+      <p>2. Salah satu jenis malware?</p>
+      <button class="option-button">Ransomware</button>
+      <button class="option-button">Notepad</button>
+
+      <p>3. Tanda komputer kena malware?</p>
+      <button class="option-button">Lambat, popup muncul</button>
+      <button class="option-button">Berjalan lebih cepat</button>
+
+      <p>4. Hindari malware dengan?</p>
+      <button class="option-button">Menginstal software bajakan</button>
+      <button class="option-button">Update sistem & antivirus</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.question-block').forEach(block => {
+      const content = block.querySelector('.question-content');
+      const arrow = block.querySelector('.arrow');
+
+      block.addEventListener('click', () => {
+        const isOpen = block.classList.toggle('open');
+        content.style.display = isOpen ? 'block' : 'none';
+        arrow.textContent = isOpen ? '▲' : '▼';
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.option-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation(); // Agar tidak trigger toggle blok
+
+          const isCorrect = button.textContent.toLowerCase().includes("vpn") ||
+            button.textContent.toLowerCase().includes("keamanan") ||
+            button.textContent.toLowerCase().includes("2 langkah") ||
+            button.textContent.toLowerCase().includes("deteksi") ||
+            button.textContent.toLowerCase().includes("update") ||
+            button.textContent.toLowerCase().includes("laporkan") ||
+            button.textContent.toLowerCase().includes("password") ||
+            button.textContent.toLowerCase().includes("huruf") ||
+            button.textContent.toLowerCase().includes("sistem keamanan") ||
+            button.textContent.toLowerCase().includes("virtual");
+
+          button.classList.add(isCorrect ? 'correct' : 'wrong');
+
+          setTimeout(() => {
+            button.classList.remove('correct', 'wrong');
+          }, 1000);
+        });
+      });
+    });
+  </script>
+  <div class="bottom-nav" id="bottomNav" style="display: flex;">
+    <div class="nav-item">
+      <a href="tampilan.html" class="nav-item">
+        <img src="https://img.icons8.com/ios-filled/30/graduation-cap.png" alt="Learn">
+        <span><strong>information</strong></span>
+      </a>
+    </div>
+    <a href="question.html" class="nav-item">
+      <img src="https://img.icons8.com/ios-filled/30/help.png">
+      <span><strong>question</strong></span>
+    </a>
+    <div class="nav-item">
+      <a href="feedback.html" class="nav-item">
+        <img src="https://img.icons8.com/ios-filled/30/speech-bubble.png" alt="Qna">
+        <span><strong>feedback</strong></span>
+      </a>
+    </div>
+    <a href="login.html" class="nav-item">
+      <img src="https://img.icons8.com/ios-filled/30/user.png" alt="About">
+      <span><strong>Account</strong></span>
+    </a>
+  </div>
+</body>
+
+</html>

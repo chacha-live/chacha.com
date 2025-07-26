@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Login</title>
+  <link rel="stylesheet" href="gaya.css">
+  <style>
+    :root {
+      --bg: #0a2540;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text: #ffffff;
+      --input-bg: #1c3a5e;
+      --primary: #4dabf7;
+      --error: #ffa8a8;
+    }
+
+    body.light {
+      --bg: #f1f5f9;
+      --card-bg: #ffffffee;
+      --text: #0a2540;
+      --input-bg: #e2e8f0;
+      --primary: #1d4ed8;
+      --error: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body,
+    html {
+      height: 100%;
+      background-color: var(--bg);
+      overflow: hidden;
+      color: var(--text);
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 1;
+      padding: 40px;
+      border-radius: 16px;
+      background: var(--card-bg);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--input-bg);
+      color: var(--text);
+    }
+
+    .input-group input:focus {
+      outline: 2px solid var(--primary);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .form-switch {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .form-switch button {
+      background: transparent;
+      border: none;
+      color: var(--primary);
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    #accountPage {
+      display: none;
+      position: fixed;
+      inset: 0;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    #accountPage .card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      text-align: center;
+      width: 600px;
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      width: 700px;
+      max-width: 90%;
+      flex-wrap: wrap;
+    }
+
+    #userAvatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    #logoutBtn {
+      background-color: #e03131;
+    }
+
+    #themeToggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: var(--primary);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    #editSection {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .error {
+      color: var(--error);
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Navbar styling tambahan */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: var(--card-bg);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      display: none;
+    }
+
+    #bottomNav {
+      display: flex !important;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-item img {
+      display: block;
+      margin: 0 auto 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="particles-js"></div>
+  <div id="themeToggle">🌗 Mode</div>
+
+  <!-- Login/Register -->
+  <div class="login-container" id="loginFormWrapper">
+    <h1 class="title">🔐 Cyber Login</h1>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="loginUsername">Username</label>
+        <input type="text" id="loginUsername" required>
+      </div>
+      <div class="input-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required>
+      </div>
+      <button type="submit">Login</button>
+      <p id="loginError" class="error"></p>
+    </form>
+    <form id="registerForm" style="display: none;">
+      <h2 class="title">📝 Daftar Akun</h2>
+      <div class="input-group">
+        <label for="regUsername">Username</label>
+        <input type="text" id="regUsername" required>
+      </div>
+      <div class="input-group">
+        <label for="regPassword">Password</label>
+        <input type="password" id="regPassword" required>
+      </div>
+      <button type="submit">Daftar</button>
+      <p id="regError" class="error"></p>
+    </form>
+    <div class="form-switch">
+      <button id="showRegister">Belum punya akun? Daftar</button>
+      <button id="showLogin" style="display:none;">Sudah punya akun? Login</button>
+    </div>
+  </div>
+
+  <!-- Account Page -->
+  <div id="accountPage">
+    <div class="card">
+
+      <div class="card-left" style="flex: 1; text-align: center;">
+        <img id="userAvatar" src="..." />
+        <input type="file" id="avatarInput" />
+      </div>
+
+
+      <div class="card-right" style="flex: 2;">
+        <h2>👤 Selamat Datang, <span id="accountUsername"></span>!</h2>
+
+        <div id="editSection">
+          <h3>Edit Akun</h3>
+          <div class="input-group">
+            <label for="editUsername">Username Baru</label>
+            <input type="text" id="editUsername">
+          </div>
+          <div class="input-group">
+            <label for="editPassword">Password Baru</label>
+            <input type="password" id="editPassword">
+          </div>
+          <button onclick="editAccount()">Simpan Perubahan</button>
+          <p id="editError" class="error"></p>
+        </div>
+        <button id="logoutBtn" onclick="logout()" style="margin-top: 20px;">Logout</button>
+      </div>
+    </div>
+    <div class="bottom-nav" id="bottomNav" style="display: flex;">
+      <div class="nav-item">
+        <a href="tampilan.html" class="nav-item">
+          <img src="https://img.icons8.com/ios-filled/30/graduation-cap.png" alt="Learn">
+          <span><strong>information</strong></span>
+        </a>
+      </div>
+      <a href="question.html" class="nav-item">
+        <img src="https://img.icons8.com/ios-filled/30/help.png">
+        <span><strong>question</strong></span>
+      </a>
+      <div class="nav-item">
+        <a href="feedback.html" class="nav-item">
+          <img src="https://img.icons8.com/ios-filled/30/speech-bubble.png" alt="Qna">
+          <span><strong>feedback</strong></span>
+        </a>
+      </div>
+      <a href="login.html" class="nav-item">
+        <img src="https://img.icons8.com/ios-filled/30/user.png" alt="About">
+        <span><strong>Account</strong></span>
+      </a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      let currentUser = "";
+
+      const loginForm = document.getElementById("loginForm");
+      const registerForm = document.getElementById("registerForm");
+      const showRegisterBtn = document.getElementById("showRegister");
+      const showLoginBtn = document.getElementById("showLogin");
+      const bottomNav = document.getElementById("bottomNav");
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = loginUsername.value.trim();
+        const password = loginPassword.value.trim();
+        const user = users.find(u => u.username === username && u.password === password);
+        if (user) {
+          currentUser = username;
+          loginFormWrapper.style.display = "none";
+          accountPage.style.display = "flex";
+          accountUsername.textContent = username;
+          editUsername.value = username;
+          bottomNav.style.display = "flex";
+        } else {
+          loginError.textContent = "❌ Username atau password salah!";
+        }
+      });
+
+      registerForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = regUsername.value.trim();
+        const password = regPassword.value.trim();
+        const exists = users.some(u => u.username === username);
+        if (exists) {
+          regError.textContent = "❌ Username sudah digunakan!";
+          return;
+        }
+        users.push({ username, password });
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("✅ Akun berhasil dibuat!");
+        showLoginForm();
+      });
+
+      function logout() {
+        accountPage.style.display = "none";
+        loginFormWrapper.style.display = "block";
+        loginForm.reset();
+        loginError.textContent = "";
+        currentUser = "";
+        bottomNav.style.display = "flex";
+      }
+
+      function showRegisterForm() {
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+        showLoginBtn.style.display = "inline";
+        showRegisterBtn.style.display = "none";
+        bottomNav.style.display = "flex";
+      }
+      function showLoginForm() {
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+        showLoginBtn.style.display = "none";
+        showRegisterBtn.style.display = "inline";
+        bottomNav.style.display = "flex";
+      }
+
+      showRegisterBtn.onclick = showRegisterForm;
+      showLoginBtn.onclick = showLoginForm;
+
+      avatarInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            userAvatar.src = e.target.result;
+            localStorage.setItem("userAvatar", e.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const avatar = localStorage.getItem("userAvatar");
+        const theme = localStorage.getItem("theme");
+        if (avatar) userAvatar.src = avatar;
+        if (theme === "light") document.body.classList.add("light");
+        document.getElementById("bottomNav").style.display = "flex";
+        const nav = document.getElementById("bottomNav");
+        if (nav) nav.style.display = "flex";
+      });
+
+      function editAccount() {
+        const newUsername = editUsername.value.trim();
+        const newPassword = editPassword.value.trim();
+        const error = document.getElementById("editError");
+
+        if (!newUsername || !newPassword) {
+          error.textContent = "❌ Username dan password tidak boleh kosong!";
+          return;
+        }
+
+        const index = users.findIndex(u => u.username === currentUser);
+        if (index !== -1) {
+          users[index] = { username: newUsername, password: newPassword };
+          localStorage.setItem("users", JSON.stringify(users));
+          currentUser = newUsername;
+          accountUsername.textContent = newUsername;
+          alert("✅ Data berhasil diperbarui!");
+          error.textContent = "";
+        }
+      }
+
+      document.getElementById("themeToggle").addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+      });
+
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 60, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#ffffff",
+            opacity: 0.4,
+            width: 1
+          },
+          move: { enable: true, speed: 3 }
+        },
+        interactivity: {
+          events: {
+            onhover: { enable: true, mode: "grab" },
+            onclick: { enable: true, mode: "push" },
+            resize: true
+          },
+          modes: {
+            grab: { distance: 140, line_linked: { opacity: 0.6 } },
+            push: { particles_nb: 4 }
+          }
+        },
+        retina_detect: true
+      });
+    </script>
+    <!-- Bottom Navbar -->
+
+</body>
+
+</html>

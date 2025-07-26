@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kirim Kritik ke Pembuat Web</title>
+    <link rel="stylesheet" href="gaya.css">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a2540;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #00c2ff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #009bc7;
+        }
+
+        .message {
+            margin-top: 15px;
+            color: #00ffcc;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Kritik & Saran Anda</h2>
+        <form id="kritikForm">
+            <input type="text" name="user_name" placeholder="Nama Anda" required />
+            <textarea name="message" rows="5" placeholder="Tulis kritik atau saran Anda..." required></textarea>
+            <button type="submit">Kirim</button>
+            <div class="message" id="pesanSukses"></div>
+        </form>
+    </div>
+    <div class="bottom-nav" id="bottomNav" style="display: flex;">
+        <div class="nav-item">
+            <a href="tampilan.html" class="nav-item">
+                <img src="https://img.icons8.com/ios-filled/30/graduation-cap.png" alt="Learn">
+                <span><strong>information</strong></span>
+            </a>
+        </div>
+        <a href="question.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/30/help.png">
+            <span><strong>question</strong></span>
+        </a>
+        <div class="nav-item">
+            <a href="feedback.html" class="nav-item">
+                <img src="https://img.icons8.com/ios-filled/30/speech-bubble.png" alt="Qna">
+                <span><strong>feedback</strong></span>
+            </a>
+        </div>
+        <a href="login.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/30/user.png" alt="About">
+            <span><strong>Account</strong></span>
+        </a>
+    </div>
+    <script>
+        // Ganti dengan public key kamu dari EmailJS
+        emailjs.init("buuT1M60af8lw3QXY");
+
+        document.getElementById('kritikForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            emailjs.sendForm('service_r1hg8oa', 'template_82v91tp', this)
+                .then(function () {
+                    document.getElementById('pesanSukses').innerText = "Terima kasih! Kritik Anda telah terkirim.";
+                    document.getElementById('kritikForm').reset();
+                }, function (error) {
+                    document.getElementById('pesanSukses').innerText = "Gagal mengirim pesan. Coba lagi.";
+                    console.error(error);
+                });
+        });
+    </script>
+
+</body>
+
+</html>
