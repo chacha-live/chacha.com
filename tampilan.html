@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cyber Security App</title>
+  <link rel="stylesheet" href="gaya.css">
+  <style>
+    .blur-text {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(-30px);
+      filter: blur(10px);
+      transition: all 2s ease-out;
+    }
+
+    .blur-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+
+    .container {
+      padding: 40px;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    function revealOnScroll() {
+      const elements = document.querySelectorAll('.blur-text');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight - 50;
+        if (isVisible) {
+          el.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', () => {
+      setTimeout(revealOnScroll, 300);
+    });
+  </script>
+
+  <div class="container">
+    <h1 class="blur-text">Cyber Security Learn</h1>
+    <p id="deskripsi" class="blur-text">Learn how to protect your personal data<strong> by ch4cha and azril </strong>
+    </p>
+
+    <a href="option.html" class="card">
+      <img src="https://img.icons8.com/ios-filled/50/bug.png" alt="Bug Icon">
+      <h2>Introduction</h2>
+      <p>Malware, attacks</p>
+    </a>
+
+    <a href="phising.html" class="card">
+      <img src="https://img.icons8.com/ios-filled/50/phishing.png" alt="Phishing Icon">
+      <h2>Phishing</h2>
+      <p>Email, websites</p>
+    </a>
+
+    <a href="password.html" class="card">
+      <img src="https://img.icons8.com/ios-filled/50/lock.png" alt="Password Icon">
+      <h2>Passwords</h2>
+      <p>Strength, management</p>
+    </a>
+
+    <a href="network.html" class="card">
+      <img src="https://img.icons8.com/ios-filled/50/lock-2.png" alt="Network Icon">
+      <h2>Network Security</h2>
+      <p>Wi-Fi, encryption</p>
+    </a>
+  </div>
+
+  <div class="bottom-nav" id="bottomNav" style="display: flex;">
+    <div class="nav-item">
+      <a href="tampilan.html" class="nav-item">
+        <img src="https://img.icons8.com/ios-filled/30/graduation-cap.png" alt="Learn">
+        <span><strong>information</strong></span>
+      </a>
+    </div>
+    <a href="question.html" class="nav-item">
+      <img src="https://img.icons8.com/ios-filled/30/help.png">
+      <span><strong>question</strong></span>
+    </a>
+    <div class="nav-item">
+      <a href="feedback.html" class="nav-item">
+        <img src="https://img.icons8.com/ios-filled/30/speech-bubble.png" alt="Qna">
+        <span><strong>feedback</strong></span>
+      </a>
+    </div>
+    <a href="login.html" class="nav-item">
+      <img src="https://img.icons8.com/ios-filled/30/user.png" alt="About">
+      <span><strong>Account</strong></span>
+    </a>
+  </div>
+</body>
+
+</html>
